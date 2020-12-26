@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "io.user.client.apihost",
+      "type": "java.lang.String",
+      "description": "Description for io.user.client.apihost."
+  }
+] }
