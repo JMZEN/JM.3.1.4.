@@ -20,26 +20,34 @@ class UserClientTest {
         assertNotNull(header);
     }
 
-    @Test
-    void getFirstElement() {
-        HttpHeaders httpHeaders = client.getHttpHeaders();
-        String result = client.postUser();
-        System.out.println(result);
-        assertNotNull(result);
-    }
+//    @Test
+//    void getFirstElement() {
+//        HttpHeaders httpHeaders = client.getHttpHeaders();
+//        String result = client.postUser();
+//        System.out.println(result);
+//        assertNotNull(result);
+//    }
 
-    @Test
-    void getSAllElements() {
-        HttpHeaders httpHeaders = client.getHttpHeaders();
-        String result = client.getCode();
-
-        System.out.println(result);
-    }
-
-    @Test
-    void notRightUsageTest() {
-        HttpHeaders httpHeaders = client.getHttpHeaders();
-        String result = client.postUser() + client.putUser() + client.deleteUser();
-        System.out.println(result);
-    }
+//    @Test
+//    void getFirstAndSecondElements() {
+//        HttpHeaders httpHeaders = client.getHttpHeaders();
+//        String result = client.getCode2();
+//
+//        System.out.println(result);
+//    }
+//
+//    @Test
+//    void getSAllElements() {
+//        HttpHeaders httpHeaders = client.getHttpHeaders();
+//        String result = client.getCode3();
+//
+//        System.out.println(result);
+//    }
+//
+//    @Test
+//    void notRightUsageTest() {
+//        HttpHeaders httpHeaders = client.getHttpHeaders();
+//        String result = client.postUser() + client.putUser() + client.deleteUser();
+//        System.out.println(result);
+//    }
 }
