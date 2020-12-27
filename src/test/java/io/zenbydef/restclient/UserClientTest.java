@@ -27,15 +27,15 @@ class UserClientTest {
         System.out.println(result);
         assertNotNull(result);
     }
-//
-//    @Test
-//    void getSecondElement() {
-//        HttpHeaders httpHeaders = UserClient.setHttpHeaders();
-//        String result = client.postUser();
-//        String result2 = client.putUser();
-//        System.out.println(result);
-//        assertNotNull(result);
-//    }
+
+    //
+    @Test
+    void getSecondElement() {
+        HttpHeaders httpHeaders = client.getHttpHeaders();
+        String result = client.getCode();
+
+        System.out.println(result);
+    }
 //
 //    @Test
 //    void get2Code() {

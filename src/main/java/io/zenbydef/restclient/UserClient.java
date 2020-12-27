@@ -16,7 +16,7 @@ import java.util.Map;
 public class UserClient {
     private static final String apihost = "http://91.241.64.178:7081/api/users";
     private static RestTemplate restTemplate;
-    private final HttpHeaders headers;
+    private HttpHeaders headers;
     static User userForEdit;
 
 
@@ -35,21 +35,22 @@ public class UserClient {
         return httpHeaders;
     }
 
-    //    public String getCode() {
-//        String partOneOfId = postUser();
-//        String partTwoOfId = putUser();
-//        String partThreeOfId = deleteUser();
-//        return partOneOfId + partTwoOfId + partThreeOfId;
-//    }
-//
-//
+    public String getCode() {
+        String result = postUser() + " " +  putUser() + " " + deleteUser();
+        return result;
+    }
+
     String postUser() {
         HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
 
-        return restTemplate.exchange(apihost,
+        ResponseEntity<String> responseEntity = restTemplate.exchange(apihost,
                 HttpMethod.POST,
                 restEntity,
-                String.class).getBody();
+                String.class);
+
+        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
+        headers.add("Cookie", header);
+        return responseEntity.getBody();
     }
 
     String putUser() {
@@ -58,23 +59,32 @@ public class UserClient {
 
         HttpEntity<User> restEntity = new HttpEntity<>(userForEdit, headers);
 
+        ResponseEntity<String> responseEntity = restTemplate.exchange(apihost,
+                HttpMethod.POST,
+                restEntity,
+                String.class);
+
+
+        String header = restEntity.getHeaders().getFirst("Set-Cookie");
+        headers.add("Cookie", header);
+
         return restTemplate.exchange(apihost,
                 HttpMethod.PUT,
                 restEntity,
                 String.class).getBody();
     }
-//
-//    String deleteUser() {
-//        HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
-//
-//        Map<String, Integer> map = new HashMap<>();
-//        map.put("id", 3);
-//
-//        return restTemplate.exchange(apihost + "/{id}",
-//                HttpMethod.DELETE,
-//                restEntity,
-//                String.class,
-//                map)
-//                .getBody();
-//    }
+
+    String deleteUser() {
+        HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("id", 3);
+
+        return restTemplate.exchange(apihost + "/{id}",
+                HttpMethod.DELETE,
+                restEntity,
+                String.class,
+                map)
+                .getBody();
+    }
 }
