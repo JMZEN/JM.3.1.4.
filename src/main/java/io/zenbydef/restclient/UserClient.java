@@ -14,33 +14,28 @@ import java.util.Map;
 
 @Component
 public class UserClient {
-    private final String apihost;
-    private final RestTemplate restTemplate;
-    private HttpHeaders headers = setHttpHeaders();
+    private static final String apihost = "http://91.241.64.178:7081/api/users";
+    private static RestTemplate restTemplate;
+    private final HttpHeaders headers;
     static User userForEdit;
 
 
     public UserClient(RestTemplateBuilder templateBuilder) {
         userForEdit = new User(3L, "Thomas", "Shelby", (byte) 1);
         restTemplate = templateBuilder.build();
-        apihost = "http://91.241.64.178:7081/api/users";
+        headers = getHttpHeaders();
     }
 
-    String getHttpHeaders() {
+    public HttpHeaders getHttpHeaders() {
         ResponseEntity<User[]> response = restTemplate.getForEntity(apihost, User[].class);
-        return response.getHeaders()
-                .getFirst("Set-Cookie");
-    }
+        String header = response.getHeaders().getFirst("Set-Cookie");
 
-    private HttpHeaders setHttpHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
-        String cookieHeader = getHttpHeaders();
-        httpHeaders.set("Cookie", cookieHeader);
+        httpHeaders.set("Cookie", header);
         return httpHeaders;
     }
 
-
-//    public String getCode() {
+    //    public String getCode() {
 //        String partOneOfId = postUser();
 //        String partTwoOfId = putUser();
 //        String partThreeOfId = deleteUser();
@@ -48,26 +43,26 @@ public class UserClient {
 //    }
 //
 //
-//    String postUser() {
-//        HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
-//
-//        return restTemplate.exchange(apihost,
-//                HttpMethod.POST,
-//                restEntity,
-//                String.class).getBody();
-//    }
-//
-//    String putUser() {
-//        userForEdit.setName("Thomas");
-//        userForEdit.setName("shelby");
-//
-//        HttpEntity<User> restEntity = new HttpEntity<>(userForEdit, headers);
-//
-//        return restTemplate.exchange(apihost,
-//                HttpMethod.PUT,
-//                restEntity,
-//                String.class).getBody();
-//    }
+    String postUser() {
+        HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
+
+        return restTemplate.exchange(apihost,
+                HttpMethod.POST,
+                restEntity,
+                String.class).getBody();
+    }
+
+    String putUser() {
+        userForEdit.setName("Thomas");
+        userForEdit.setName("shelby");
+
+        HttpEntity<User> restEntity = new HttpEntity<>(userForEdit, headers);
+
+        return restTemplate.exchange(apihost,
+                HttpMethod.PUT,
+                restEntity,
+                String.class).getBody();
+    }
 //
 //    String deleteUser() {
 //        HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
