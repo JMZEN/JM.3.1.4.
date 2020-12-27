@@ -37,7 +37,7 @@ class UserClientTest {
     }
 
     @Test
-    void delete() {
+    void notRightUsageTest() {
         HttpHeaders httpHeaders = client.getHttpHeaders();
         String result = client.postUser() + client.putUser() + client.deleteUser();
         System.out.println(result);

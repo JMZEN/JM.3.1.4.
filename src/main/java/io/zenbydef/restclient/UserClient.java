@@ -15,15 +15,13 @@ import java.util.Map;
 @Component
 public class UserClient {
     private static final String apihost = "http://91.241.64.178:7081/api/users";
-    private static RestTemplate restTemplate;
-    private HttpHeaders headers;
-    static User userForEdit;
+    private RestTemplate restTemplate = new RestTemplate();
+    private HttpHeaders headers = getHttpHeaders();
+    private User userForEdit;
 
 
-    public UserClient(RestTemplateBuilder templateBuilder) {
+    public UserClient() {
         userForEdit = new User(3L, "Thomas", "Shelby", (byte) 1);
-        restTemplate = templateBuilder.build();
-        headers = getHttpHeaders();
     }
 
     public HttpHeaders getHttpHeaders() {
@@ -48,8 +46,8 @@ public class UserClient {
                 restEntity,
                 String.class);
 
-        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
-        headers.add("Cookie", header);
+//        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
+//        headers.add("Cookie", header);
         return responseEntity.getBody();
     }
 
@@ -64,17 +62,17 @@ public class UserClient {
                 restEntity,
                 String.class);
 
-        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
-        headers.add("Cookie", header);
+//        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
+//        headers.add("Cookie", header);
 
         return responseEntity.getBody();
     }
 
     String deleteUser() {
-        HttpEntity<?> restEntity = new HttpEntity<>(userForEdit, headers);
+        HttpEntity<?> restEntity = new HttpEntity<>(null, headers);
 
         Map<String, Integer> map = new HashMap<>();
-        map.put("id", 3);
+        map.put("id", Math.toIntExact(userForEdit.getId()));
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(apihost + "/{id}",
                 HttpMethod.DELETE,
@@ -82,8 +80,8 @@ public class UserClient {
                 String.class,
                 map);
 
-        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
-        headers.add("Cookie", header);
+//        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
+//        headers.add("Cookie", header);
 
         return responseEntity.getBody();
     }
