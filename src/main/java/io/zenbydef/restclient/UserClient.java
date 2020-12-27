@@ -1,7 +1,6 @@
 package io.zenbydef.restclient;
 
 import io.zenbydef.models.User;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -29,8 +27,11 @@ public class UserClient {
 
     public static void main(String[] args) {
         UserClient userClient = new UserClient();
-        String result = userClient.postUser() + userClient.putUser() + userClient.deleteUser();
-        System.out.println(result.equals("5ebfebe7cb975dfcf9"));
+        System.out.println(userClient.getCode());
+    }
+
+    private String getCode() {
+        return postUser() + putUser() + deleteUser();
     }
 
     private HttpHeaders getHttpHeaders() {

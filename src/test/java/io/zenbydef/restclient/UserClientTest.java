@@ -8,5 +8,4 @@ class UserClientTest {
 
     @Autowired
     UserClient client;
-
 }
