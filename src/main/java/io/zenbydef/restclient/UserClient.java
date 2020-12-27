@@ -36,7 +36,7 @@ public class UserClient {
     }
 
     public String getCode() {
-        String result = postUser() + " " +  putUser() + " " + deleteUser();
+        String result = postUser() + " " + putUser() + " " + deleteUser();
         return result;
     }
 
@@ -64,14 +64,10 @@ public class UserClient {
                 restEntity,
                 String.class);
 
-
-        String header = restEntity.getHeaders().getFirst("Set-Cookie");
+        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
         headers.add("Cookie", header);
 
-        return restTemplate.exchange(apihost,
-                HttpMethod.PUT,
-                restEntity,
-                String.class).getBody();
+        return responseEntity.getBody();
     }
 
     String deleteUser() {
@@ -80,11 +76,15 @@ public class UserClient {
         Map<String, Integer> map = new HashMap<>();
         map.put("id", 3);
 
-        return restTemplate.exchange(apihost + "/{id}",
+        ResponseEntity<String> responseEntity = restTemplate.exchange(apihost + "/{id}",
                 HttpMethod.DELETE,
                 restEntity,
                 String.class,
-                map)
-                .getBody();
+                map);
+
+        String header = responseEntity.getHeaders().getFirst("Set-Cookie");
+        headers.add("Cookie", header);
+
+        return responseEntity.getBody();
     }
 }

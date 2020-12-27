@@ -28,31 +28,18 @@ class UserClientTest {
         assertNotNull(result);
     }
 
-    //
     @Test
-    void getSecondElement() {
+    void getSAllElements() {
         HttpHeaders httpHeaders = client.getHttpHeaders();
         String result = client.getCode();
 
         System.out.println(result);
     }
-//
-//    @Test
-//    void get2Code() {
-////        String sessionId = client.getAllUsers();
-////        String firstPart = client.postUser(null);
-//        String result = client.putUser();
-//        System.out.println(result);
-//        assertNotNull(result);
-//    }
 
-//    @Test
-//    void getCodeD() {
-////        String sessionId = client.getAllUsers();
-////        String firstPart = client.postUser(sessionId);
-////        String secondPart = client.deleteUser(sessionId);
-//
-////        System.out.println(secondPart);
-////        assertNotNull(secondPart);
-//    }
+    @Test
+    void delete() {
+        HttpHeaders httpHeaders = client.getHttpHeaders();
+        String result = client.postUser() + client.putUser() + client.deleteUser();
+        System.out.println(result);
+    }
 }
