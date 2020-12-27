@@ -20,13 +20,13 @@ class UserClientTest {
         assertNotNull(header);
     }
 
-//    @Test
-//    void getFirstElement() {
-//        HttpHeaders httpHeaders = UserClient.setHttpHeaders();
-//        String result = client.postUser();
-//        System.out.println(result);
-//        assertNotNull(result);
-//    }
+    @Test
+    void getFirstElement() {
+        HttpHeaders httpHeaders = client.getHttpHeaders();
+        String result = client.postUser();
+        System.out.println(result);
+        assertNotNull(result);
+    }
 //
 //    @Test
 //    void getSecondElement() {
